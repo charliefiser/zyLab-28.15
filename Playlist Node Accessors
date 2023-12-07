@@ -1,0 +1,20 @@
+// Accessors
+string PlaylistNode::GetID() const {
+    return uniqueID;
+}
+
+string PlaylistNode::GetSongName() const {
+    return songName;
+}
+
+string PlaylistNode::GetArtistName() const {
+    return artistName;
+}
+
+int PlaylistNode::GetSongLength() const {
+    return songLength;
+}
+
+PlaylistNode* PlaylistNode::GetNext() const {
+    return nextNodePtr;
+}
