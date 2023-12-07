@@ -1,4 +1,41 @@
 #include <iostream>
 #include "PlaylistNode.h"
+#ifndef PLAYLISTNODE_H
+#define PLAYLISTNODE_H
 
+#include <string>
 using namespace std;
+
+class PlaylistNode {
+public:
+    // Default constructor
+    PlaylistNode();
+
+    // Parameterized constructor
+    PlaylistNode(string uniqueID, string songName, string artistName, int songLength);
+
+    // Accessors
+    string GetID() const;
+    string GetSongName() const;
+    string GetArtistName() const;
+    int GetSongLength() const;
+    PlaylistNode* GetNext() const;
+
+    // Mutators
+    void InsertAfter(PlaylistNode* nodePtr);
+    void SetNext(PlaylistNode* nodePtr);
+
+    // Print function
+    void PrintPlaylistNode() const;
+
+private:
+    string uniqueID;
+    string songName;
+    string artistName;
+    int songLength;
+    PlaylistNode* nextNodePtr;
+};
+
+#endif  // PLAYLISTNODE_H
+
+
