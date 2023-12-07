@@ -1,0 +1,175 @@
+PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headNode) {
+   /* Type your code here */
+   //Step 4
+   switch (option) {
+        case 'a':{
+            // Implement the logic to add a song
+            
+            //Step 7
+            cout << "ADD SONG" << endl;
+            // Get user input for the new song
+            string uniqueID, songName, artistName;
+            int songLength;
+
+            cout << "Enter song's unique ID:" << endl;
+            cin >> uniqueID;
+
+            cout << "Enter song's name:" << endl;
+            cin.ignore(); // Clear newline character from the buffer
+            getline(cin, songName);
+
+            cout << "Enter artist's name:" << endl;
+            getline(cin, artistName);
+
+            cout << "Enter song's length (in seconds):" << endl;
+            cin >> songLength;
+
+            // Create a new PlaylistNode with the user input
+            PlaylistNode* newNode = new PlaylistNode(uniqueID, songName, artistName, songLength);
+
+            // Add the new node to the end of the list
+            if (headNode == nullptr) {
+                headNode = newNode;
+            } else {
+                PlaylistNode* current = headNode;
+                while (current->GetNext() != nullptr) {
+                    current = current->GetNext();
+                }
+                current->SetNext(newNode);
+            }
+            
+            break;
+            }
+        case 'd': {
+            // Implement the logic to remove a song
+            
+            //Step 8:
+            cout << "REMOVE SONG" << endl;
+
+            // Get the unique ID of the song to be removed from user
+            string removeID;
+            cout << "Enter song's unique ID:" << endl;
+            cin >> removeID;
+
+            // Create pointers to scan the list and keep track of the previous node
+            PlaylistNode* current = headNode;
+            PlaylistNode* previous = nullptr;
+
+            // Scan the list to find the node with the specified unique ID
+            while (current != nullptr && current->GetID() != removeID) {
+            previous = current;
+            current = current->GetNext();
+            }
+
+            // See if song was found
+            if (current != nullptr) {
+               // Remove the node from the list
+               if (previous != nullptr) {
+                  previous->SetNext(current->GetNext());
+                  delete current;
+                  cout << "\"" << current->GetSongName() << "\" removed." << endl;
+               } else {
+                  // The node to be removed is the head node
+                  headNode = current->GetNext();
+                  delete current;
+                  cout << "\"" << current->GetSongName() << "\" removed." << endl;
+               }
+            } else {
+            // Song not found
+               cout << "Song with ID \"" << removeID << "\" not found." << endl;
+            }
+            
+            break;
+            }
+        case 'c':
+            // Implement the logic to change the position of a song
+            break;
+        case 's':{
+            // Implement the logic to output songs by a specific artist
+            
+            //Step 10:
+            cout << endl;
+            cout << "OUTPUT SONGS BY SPECIFIC ARTIST" << endl;
+
+            // Prompt the user for the artist's name
+            string artist;
+            //cin.ignore();
+            cout << "Enter artist's name:" << endl;
+            getline(cin, artist);
+            
+
+            // Create a pointer to traverse the list
+            PlaylistNode* current = headNode;
+            int pos = 1;
+            bool found = false;
+
+            // Traverse the list and output information for songs by the specified artist
+            while (current != nullptr) {
+               if (current->GetArtistName() == artist) {
+                  cout << endl;
+                  cout << pos << "." << endl;
+                  current->PrintPlaylistNode();
+                  found = true;
+               }
+               current = current->GetNext();
+               ++pos;
+            }
+
+            // Check if any songs by the specified artist were found
+            if (!found) {
+               cout << "No songs found for artist \"" << artist << "\"." << endl;
+            }
+            
+            
+            break;
+            }
+        case 't':{
+            // Implement the logic to output total time of the playlist
+            
+            //Step 11
+            cout << "OUTPUT TOTAL TIME OF PLAYLIST (IN SECONDS)" << endl;
+            
+            int totalTime = 0;
+            PlaylistNode* current = headNode;
+
+            while (current != nullptr) {
+               totalTime += current->GetSongLength();
+               current = current->GetNext();
+            }
+
+            cout << "Total time: " << totalTime << " seconds" << endl;
+            
+            break;
+            }
+        case 'o':
+            // Implement the logic to output the full playlist
+            
+            //Step 6: !!!
+            cout << playlistTitle << " - OUTPUT FULL PLAYLIST" << endl;
+            if (headNode == nullptr) {
+                cout << "Playlist is empty" << endl;
+            } else {
+                int position = 1;
+                PlaylistNode* current = headNode;
+
+                while (current != nullptr) {
+                    if (position > 1){
+                       cout << endl;
+                    }
+                    cout << position << "." << endl;
+                    current->PrintPlaylistNode();
+                    current = current->GetNext();
+                    ++position;
+                }
+            }
+            break;
+            
+        case 'q':
+            // Implement the logic to quit the program
+            break;
+        default:
+            cout << "Invalid choice. Please try again." << endl;
+    }
+
+    return headNode;
+}
