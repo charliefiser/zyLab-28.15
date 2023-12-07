@@ -1,0 +1,21 @@
+#include "PlaylistNode.h"
+#include <iostream>
+using namespace std;
+
+// Default constructor
+PlaylistNode::PlaylistNode(){
+    this->uniqueID = "none";
+    this->nextNodePtr = nullptr;
+    this->songName = "none";
+    this->artistName = "none";
+    this->songLength = 0;
+}
+
+// Parameterized constructor
+PlaylistNode::PlaylistNode(string uniqueID, string songName, string artistName, int songLength){
+   this->uniqueID = uniqueID;
+   this->nextNodePtr = nullptr;
+   this->songName = songName;
+   this->artistName = artistName;
+   this->songLength = songLength;
+}
