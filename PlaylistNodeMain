@@ -1,0 +1,27 @@
+int main() {
+   /* Type your code here */
+   // Step 2: Prompt the user for the title of the playlist
+   string playlistTitle;
+    
+   cout << "Enter playlist's title:" << endl;
+   getline(cin, playlistTitle);
+   
+   //Step 5:
+   PlaylistNode* headNode = nullptr;
+   char option;
+   do {
+        PrintMenu(playlistTitle);
+        cout << "Choose an option:" << endl;
+        cin >> option;
+        cin.ignore();  // Consume the newline character
+
+        headNode = ExecuteMenu(option, playlistTitle, headNode);
+    } while (option != 'q');
+
+    
+
+
+   
+   return 0;
+}
+
